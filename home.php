@@ -1,3 +1,37 @@
+<?php
+ #databas connect
+$host="localhost";
+$user="root";
+$password="root";
+$db="student1";
+$conn=mysqli_connect($host,$user,$password,$db);
+$select="select * from student ";
+$r=mysqli_query($conn,$select) ;
+
+
+                         #Buttun values
+
+if(isset($_POST['id'])){
+    $id=$_POST['id'];
+}if(isset($_POST['name'])){
+    $name=$_POST['name'];
+
+}if(isset($_POST['addres'])){
+    $addres=$_POST['addres'];
+}
+
+if(isset($_POST['add'])){
+    $sqls="insert into student value($id,'$name','$addres')";
+    $q=mysqli_query($conn,$sqls) ;                
+    header("location:home.php");
+}
+if(isset($_POST['del'])){
+ $sqls="delete from student where id=('$id')";
+    $q=mysqli_query($conn,$sqls) ; 
+    header("location:home.php");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +62,8 @@
             float: left;
             border: 1px solid grey;
             padding: 5px;
+            color: aliceblue;
+            background-color:silver ;
         }
 
         input {
@@ -51,10 +87,14 @@
         #tbl{
             width: 890px;
             font-size: 20px;
+            text-align: center;
         }
         #tbl th{
             background-color:silver;
             color:aliceblue;
+            text-align: center;
+            font-size:20px;
+            padding:10px;
 
         }
         aside button{
@@ -75,7 +115,7 @@
         <aside>
             <div id='div'>
                 <img src="./img/P1.png" alt="logo" width="80">
-                <h3>admin penal</h3>
+                <h3>admin panel</h3>
                 <label for="id"> Student ID</label>
                 <br>
                 <input type="text" name="id" id='id'><br>
@@ -97,9 +137,20 @@
                     <th> Student ID</th>
                     <th> Student Name</th>
                     <th> Student Address</th>
-
-
                 </tr>
+                <?php
+                
+              while ($row=mysqli_fetch_array($r)){
+                echo "<tr>";
+                echo "<td>".$row['id'].'</td>';
+                echo "<td>".$row['name'].'</td>';
+                echo "<td>".$row['addres'].'</td>';
+                echo '</tr>';
+ 
+            
+            }
+                
+                ?>
 
 
             </table>
