@@ -1,0 +1,9 @@
+databesis name 
+student1
+------------
+table name 
+student
+----
+id 
+name
+addres
