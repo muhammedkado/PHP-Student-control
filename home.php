@@ -1,33 +1,33 @@
 <?php
- #databas connect
-$host="localhost";
-$user="root";
-$password="root";
-$db="student1";
-$conn=mysqli_connect($host,$user,$password,$db);
-$select="select * from student ";
-$r=mysqli_query($conn,$select) ;
+#databas connect
+$host = "localhost";
+$user = "root";
+$password = "root";
+$db = "student1";
+$conn = mysqli_connect($host, $user, $password, $db);
+$select = "select * from student ";
+$r = mysqli_query($conn, $select);
 
 
-                         #Buttun values
+#Buttun values
 
-if(isset($_POST['id'])){
+
+if (isset($_POST['name'])) {
+    $name = $_POST['name'];
     $id=$_POST['id'];
-}if(isset($_POST['name'])){
-    $name=$_POST['name'];
-
-}if(isset($_POST['addres'])){
-    $addres=$_POST['addres'];
+}
+if (isset($_POST['addres'])) {
+    $addres = $_POST['addres'];
 }
 
-if(isset($_POST['add'])){
-    $sqls="insert into student value($id,'$name','$addres')";
-    $q=mysqli_query($conn,$sqls) ;                
+if (isset($_POST['add'])) {
+    $sqls = "insert into student value($id,'$name','$addres')";
+    $q = mysqli_query($conn, $sqls);
     header("location:home.php");
 }
-if(isset($_POST['del'])){
- $sqls="delete from student where id=('$id')";
-    $q=mysqli_query($conn,$sqls) ; 
+if (isset($_POST['del'])) {
+    $sqls = "delete from student where name=('$name')";
+    $q = mysqli_query($conn, $sqls);
     header("location:home.php");
 }
 
@@ -47,7 +47,7 @@ if(isset($_POST['del'])){
         body {
             background-color: whitesmoke;
             font-family: 'Vollkorn', serif;
-           
+
         }
 
         #mother {
@@ -63,7 +63,7 @@ if(isset($_POST['del'])){
             border: 1px solid grey;
             padding: 5px;
             color: aliceblue;
-            background-color:silver ;
+           
         }
 
         input {
@@ -76,34 +76,53 @@ if(isset($_POST['del'])){
 
         aside {
             text-align: center;
-            
             float: right;
-            border:1px solid black;
-            padding:10px;
+            border: 1px solid black;
+            padding: 10px;
             font-size: 20px;
-            background-color:silver ;
-            color:aliceblue;
+            background-color: silver;
+            color: black;
         }
-        #tbl{
+
+        #tbl {
             width: 890px;
             font-size: 20px;
             text-align: center;
         }
-        #tbl th{
-            background-color:silver;
-            color:aliceblue;
+
+        #tbl th {
             text-align: center;
-            font-size:20px;
-            padding:10px;
+            font-size: 20px;
+            padding: 10px;
+            color:black;
 
         }
-        aside button{
-            width:150px;
+
+        .thi {
+            background-color:silver;
+            color: black;
+            text-align: center;
+            font-size: 20px;
+            padding: 10px;
+
+        }
+
+        aside button {
+            width: 150px;
             padding: 2px;
-            margin-top:20px;
+            margin-top: 20px;
             font-family: 'Tajawal', sans-serif;
-            font-size:17px;
-            font-weight:bold;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .adminPanel {
+            color: black;
+        }
+
+        #tbl th:hover {
+            background-color: white;
+
         }
     </style>
 </head>
@@ -115,12 +134,11 @@ if(isset($_POST['del'])){
         <aside>
             <div id='div'>
                 <img src="./img/P1.png" alt="logo" width="80">
-                <h3>admin panel</h3>
-                <label for="id"> Student ID</label>
-                <br>
-                <input type="text" name="id" id='id'><br>
-                <label for="name">Student Name</label>
-                <br>
+                <h3 class="adminPanel">admin panel</h3>
+              <label for="id"> Student ID</label><br>
+                
+             <input type="text" name="id" id='id'><br> 
+                <label for="name">Student Name</label><br>
                 <input type="text" name="name" id='name'>
                 <br>
                 <label for="addres">Student Address</label>
@@ -134,23 +152,21 @@ if(isset($_POST['del'])){
         <main>
             <table id='tbl'>
                 <tr>
-                    <th> Student ID</th>
-                    <th> Student Name</th>
-                    <th> Student Address</th>
+                    <th class="thi"> Student ID</th>
+                    <th class="thi"> Student Name</th>
+                    <th class="thi"> Student Address</th>
                 </tr>
                 <?php
-                
-              while ($row=mysqli_fetch_array($r)){
-                echo "<tr>";
-                echo "<td>".$row['id'].'</td>';
-                echo "<td>".$row['name'].'</td>';
-                echo "<td>".$row['addres'].'</td>';
-                echo '</tr>';
- 
-            
-            }
-                
-                ?>
+
+while ($row = mysqli_fetch_array($r)) {
+    echo "<tr>";
+    echo "<th>" . $row['id'] . '</th>';
+    echo "<th>" . $row['name'] . '</th>';
+    echo "<th>" . $row['addres'] . '</th>';
+    echo '</tr>';
+}
+
+?>
 
 
             </table>
